@@ -6,6 +6,8 @@ Wants=systemd-udevd.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
+# Fixed-uid service user for the app; recreated on every boot (the root tree is RAM-backed).
+ExecStartPre=/bin/sh -c 'id app >/dev/null 2>&1 || useradd -r -u 900 -s /sbin/nologin -d /opt/app app'
 ExecStart=/opt/app/secure-notes data-volume
 TimeoutStartSec=180
 

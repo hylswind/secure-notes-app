@@ -1,0 +1,20 @@
+[Unit]
+Description=secure-notes (private notes on an attested instance)
+After=network-online.target secure-notes-data.service
+Wants=network-online.target
+Requires=secure-notes-data.service
+
+[Service]
+Type=simple
+User=app
+Group=app
+WorkingDirectory=/opt/app
+ExecStart=/opt/app/secure-notes serve
+Restart=always
+RestartSec=2
+StateDirectory=secure-notes
+RuntimeDirectory=secure-notes
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

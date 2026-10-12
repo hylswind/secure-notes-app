@@ -4,6 +4,6 @@ packages:
   build: [golang]
 build: ./scripts/build.sh
 test: ./scripts/test.sh
-exec: /opt/app/secure-notes serve
-system:
-  units: [system/secure-notes-data.service]
+units:
+  - system/secure-notes-data.service
+  - system/secure-notes.service
