@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes - secure-notes</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="bar">
+  <strong>secure-notes</strong>
+  <nav><a href="/app/settings">Settings</a></nav>
+</header>
+<div class="layout">
+  <aside id="sidebar" aria-label="Notes list">
+    <div class="views" role="tablist">
+      <button id="view-notes" class="tab active" role="tab" aria-selected="true">Notes</button>
+      <button id="view-shared" class="tab" role="tab" aria-selected="false">Shared with me</button>
+      <button id="view-trash" class="tab" role="tab" aria-selected="false">Trash</button>
+    </div>
+    <div class="row">
+      <label class="sr" for="search">Search notes</label>
+      <input id="search" type="search" placeholder="Search…" autocomplete="off">
+      <button id="new-note" class="button primary">New</button>
+    </div>
+    <div id="tag-chips" class="chips" aria-label="Filter by tag"></div>
+    <ul id="note-list" class="note-list"></ul>
+    <div class="row pager">
+      <button id="prev" class="button">&larr;</button>
+      <span id="page-info"></span>
+      <button id="next" class="button">&rarr;</button>
+    </div>
+  </aside>
+  <section id="editor" aria-label="Editor">
+    <p id="empty" class="muted">Select a note or create a new one.</p>
+    <form id="note-form" hidden>
+      <div id="message" role="status" class="message" hidden></div>
+      <label for="title">Title</label>
+      <input id="title" maxlength="200" required>
+      <label for="tags">Tags (comma separated, a-z 0-9 -)</label>
+      <input id="tags" autocomplete="off">
+      <div class="split">
+        <div>
+          <label for="body">Markdown</label>
+          <textarea id="body" rows="16"></textarea>
+        </div>
+        <div>
+          <span class="label">Preview</span>
+          <div id="preview" class="preview" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="row actions">
+        <button type="submit" id="save" class="button primary">Save</button>
+        <button type="button" id="share" class="button">Share…</button>
+        <button type="button" id="trash" class="button">Move to trash</button>
+        <button type="button" id="restore" class="button" hidden>Restore</button>
+        <button type="button" id="delete-forever" class="button danger" hidden>Delete permanently</button>
+        <span id="save-state" class="muted"></span>
+      </div>
+    </form>
+  </section>
+</div>
+<dialog id="share-dialog" aria-labelledby="share-title">
+  <h2 id="share-title">Share note</h2>
+  <p class="muted">People you add can read this note (read-only) after signing in with that email.</p>
+  <form id="share-form" class="row">
+    <label class="sr" for="share-email">Email</label>
+    <input id="share-email" type="email" required placeholder="name@example.com">
+    <button class="button primary" type="submit">Add</button>
+  </form>
+  <p id="share-error" class="error" hidden></p>
+  <ul id="share-list"></ul>
+  <button id="share-close" class="button">Close</button>
+</dialog>
+<script src="/static/md.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

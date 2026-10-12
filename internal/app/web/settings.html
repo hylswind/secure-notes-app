@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings - secure-notes</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="bar">
+  <strong>secure-notes</strong>
+  <nav><a href="/app">Notes</a></nav>
+</header>
+<main class="page">
+  <h1>Settings</h1>
+  <section>
+    <h2>Account</h2>
+    <dl>
+      <dt>Name</dt><dd id="acct-name">…</dd>
+      <dt>Email</dt><dd id="acct-email">…</dd>
+    </dl>
+    <button id="logout" class="button">Log out</button>
+  </section>
+  <section>
+    <h2>Data volume</h2>
+    <dl>
+      <dt>Status</dt><dd id="vol-state">…</dd>
+      <dt>Detail</dt><dd id="vol-reason">…</dd>
+      <dt>Certificate expires</dt><dd id="cert-exp">…</dd>
+      <dt>Version</dt><dd id="version">…</dd>
+    </dl>
+    <p>All notes, users, the session key and the TLS certificate live on an extra EBS volume encrypted with LUKS.
+    Its key is sealed to this instance's NitroTPM. This means:</p>
+    <ul>
+      <li>The volume unlocks automatically after a <strong>reboot</strong> of the same instance.</li>
+      <li>It cannot be opened on another instance.</li>
+      <li><strong>Stopping and starting</strong> the instance (as opposed to rebooting it) discards the TPM storage
+      hierarchy and makes the data unrecoverable.</li>
+      <li>An image rebuilt with different measurements cannot open an existing volume.</li>
+    </ul>
+  </section>
+</main>
+<script src="/static/settings.js"></script>
+</body>
+</html>

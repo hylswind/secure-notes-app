@@ -1,0 +1,13 @@
+name: secure-notes
+packages:
+  runtime: [cryptsetup, tpm2-tss, e2fsprogs, util-linux]
+  build: [golang]
+build: ./scripts/build.sh
+test: ./scripts/test.sh
+exec: /opt/app/secure-notes serve
+port: 80
+healthcheck:
+  path: /healthz
+  timeout_s: 120
+system:
+  units: [system/secure-notes-data.service]

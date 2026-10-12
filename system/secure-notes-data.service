@@ -1,0 +1,13 @@
+[Unit]
+Description=secure-notes encrypted data volume (LUKS2 sealed to NitroTPM)
+After=local-fs.target systemd-udevd.service
+Wants=systemd-udevd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/app/secure-notes data-volume
+TimeoutStartSec=180
+
+[Install]
+WantedBy=multi-user.target
